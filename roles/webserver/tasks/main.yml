@@ -1,0 +1,85 @@
+- name: Install GCC
+  package:
+    name: gcc
+    state: present
+
+- name: Install Git
+  package:
+    name: git
+    state: present
+
+- name: Install Perl Development
+  package:
+    name: libperl-dev
+    state: present
+
+- name: Install Cpanminus
+  package:
+    name: cpanminus
+    state: present
+
+- name: Install Nginx
+  package:
+    name: nginx
+    state: present
+
+- name: Install FastCGI
+  package:
+    name: spawn-fcgi
+    state: present
+
+- name: Install CGI.pm
+  cpanm:
+    name: CGI
+
+- name: Install YAML::XS
+  cpanm:
+    name: YAML::XS
+
+- name: Install vim
+  package:
+    name: vim
+    state: present
+
+- name: Copy vim rc
+  template:
+    src: vimrc
+    dest: "/home/{{ ansible_user }}/.vimrc" 
+
+- name: Make Web Directory
+  file:
+    path: /var/www
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
+
+- name: Push Hello HTML
+  template:
+    src: index.html
+    dest: /var/www/index.html
+    owner: "{{ ansible_user }}"
+    group: www-data 
+    mode: 0755
+
+- name: Make CGI-BIN Directory
+  file:
+    path: /var/www/cgi-bin
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: www-data 
+    mode: 0755
+
+- name: Push Hello CGI
+  template:
+    src: index.cgi
+    dest: /var/www/cgi-bin/index.cgi
+    owner: "{{ ansible_user }}"
+    group: www-data
+    mode: 0755
+
+- name: Push NGINX Conf
+  template:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+
