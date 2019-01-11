@@ -1,0 +1,9 @@
+---
+- name: Update Raspberry Pi Nodes
+  hosts: all
+  remote_user: clandry
+  become: yes
+  tasks:
+    - name: Ping
+      ping:
+

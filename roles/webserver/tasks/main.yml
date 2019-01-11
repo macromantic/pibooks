@@ -23,9 +23,14 @@
     name: nginx
     state: present
 
-- name: Install FastCGI
+- name: Install Spawn FCGI
   package:
     name: spawn-fcgi
+    state: present
+
+- name: Install FastCGIWrap
+  package:
+    name: fcgiwrap
     state: present
 
 - name: Install CGI.pm
@@ -82,4 +87,24 @@
   template:
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
+
+- name: Enable NGINX
+  service:
+    name: nginx
+    enabled: yes
+
+- name: Start NGINX
+  service:
+    name: nginx
+    state: started
+
+- name: Enable FCGIWrap
+  service:
+    name: fcgiwrap
+    enabled: yes
+
+- name: Start FCGIWrap
+  service:
+    name: fcgiwrap
+    state: started
 
