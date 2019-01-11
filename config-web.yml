@@ -1,0 +1,44 @@
+---
+- name: Install and Configure Web Server
+  hosts: web
+  remote_user: clandry
+  become: yes
+  tasks:
+    - name: Install GCC
+      package:
+        name: gcc
+        state: present
+
+    - name: Install Git
+      package:
+        name: git
+        state: present
+
+    - name: Install Perl Development
+      package:
+        name: libperl-dev
+        state: present
+
+    - name: Install Cpanminus
+      package:
+        name: cpanminus
+        state: present
+
+    - name: Install Nginx
+      package:
+        name: nginx
+        state: present
+
+    - name: Install FastCGI
+      package:
+        name: spawn-fcgi
+        state: present
+
+    - name: Install CGI.pm
+      cpanm:
+         name: CGI
+
+    - name: Install YAML::XS
+      cpanm:
+         name: YAML::XS
+ 

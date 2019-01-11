@@ -1,0 +1,17 @@
+---
+- name: Update Raspberry Pi Nodes
+  hosts: all
+  remote_user: clandry
+  become: yes
+  tasks:
+    - name: Ping
+      ping:
+
+    - name: apt-get update
+      apt:
+        update_cache: yes
+
+    - name: Upgrade all
+      apt:
+        upgrade: dist
+
