@@ -1,0 +1,10 @@
+---
+- name: Update Raspberry Pi Release Info
+  hosts: all
+  become: yes
+  tasks:
+    - name: apt-get update
+      shell: apt-get update --allow-releaseinfo-change
+      args:
+        warn: no
+

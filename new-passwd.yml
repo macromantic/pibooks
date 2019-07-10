@@ -1,0 +1,10 @@
+---
+- name: Reset the Raspberry Pi User Password
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update pi password
+      user:
+        name: pi
+        password: "{{ lookup('file', '~/.secrets/pi_password') }}"
+
